@@ -1,0 +1,38 @@
+{
+    "name": "yakoffka/laravel-universal-coordinate-parser",
+    "description": "laravel universal coordinate parser",
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Yakoffka\\LaravelUniversalCoordinateParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yakoffka\\LaravelUniversalCoordinateParser\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yakoffka",
+            "email": "yagithub@mail.ru"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^9.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Yakoffka\\UniversalCoordinateParser\\ServiceProvider"
+            ],
+            "aliases": {
+                "UniversalCoordinateParser": "Yakoffka\\UniversalCoordinateParser\\Facade"
+            }
+        }
+    }
+}
