@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Yakoffka\UniversalCoordinateParser\Patterns;
 
 /**
- * Шаблон Example 'дддддддддддррррррррррррррррррр'
+ * Шаблон Example 'exampleSrcString'
  *
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
  */
