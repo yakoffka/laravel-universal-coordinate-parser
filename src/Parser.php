@@ -46,7 +46,7 @@ class Parser
      * @return mixed
      * @throws PatternNotFoundException
      */
-    public function getMatches(string $subject, &$matches): mixed
+    private function getMatches(string $subject, &$matches): mixed
     {
         $res = preg_match(PatternType::getUniversalRegex(), $subject, $matches, PREG_UNMATCHED_AS_NULL);
 
