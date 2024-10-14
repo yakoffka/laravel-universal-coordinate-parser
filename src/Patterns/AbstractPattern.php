@@ -10,6 +10,9 @@ use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLongitudeException;
 
 abstract class AbstractPattern
 {
+    private const MINUTES_IN_DEGREES = 60;
+    private const SECONDS_IN_DEGREES = 3600;
+
     /**
      * @param array $params
      * @return static
@@ -44,8 +47,8 @@ abstract class AbstractPattern
     {
         $lat = $this->getMultiplier($this->ltSign ?? $this->ltLetter) * (
                 $this->ltDegrees
-                + $this->ltMinutes / 60
-                + $this->ltSeconds / 3600
+                + $this->ltMinutes / self::MINUTES_IN_DEGREES
+                + $this->ltSeconds / self::SECONDS_IN_DEGREES
             );
 
         if ($lat < -90 or $lat > 90) {
