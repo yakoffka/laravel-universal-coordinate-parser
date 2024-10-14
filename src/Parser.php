@@ -17,6 +17,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern07;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern08;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern09;
 
 /**
  * Универсальный парсер координат.
@@ -57,19 +58,9 @@ class Parser
     . '|' . Pattern06::REGEX
     . '|' . Pattern07::REGEX
     . '|' . Pattern08::REGEX
-    . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
+    . '|' . Pattern09::REGEX
     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
     . '~';
-
-    /**
-     * Шаблон 09: yandex (N55.00136/E057.19818 equivalent 55.00136°N/057.19818°E)
-     * значения в градусах с возможной дробной частью, разделителем в виде слэша, а буквенное обозначение расположено
-     * перед значением
-     *
-     * https://regex101.com/r/EPBroQ/3
-     */
-    public const REGEX_09 = '~^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)'
-    . '(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$~';
 
     /**
      * Шаблон 10: ТС-2013 число представлено в жестком формате GGMMSGGGMMS
@@ -146,7 +137,7 @@ class Parser
             't06' => Pattern06::from($params),
             't07' => Pattern07::from($params),
             't08' => Pattern08::from($params),
-            // 't09' => '', // Pattern09::from($params),
+            't09' => Pattern09::from($params),
             // 't10' => '', // Pattern10::from($params),
         };
     }
@@ -159,7 +150,6 @@ class Parser
     private function getPatternName(array $params, string $subject): string
     {
         $matchingPatterns = array_intersect(array_keys($this->patterns), array_keys($params));
-        // dd($matchingPatterns);
 
         if (count($matchingPatterns) > 1) {
             throw new RuntimeException("Найдено совпадение с более, чем одним шаблоном для '$subject': "
@@ -169,7 +159,6 @@ class Parser
             throw new RuntimeException("Не найдено совпадений ни с одним одним шаблоном для '$subject'");
         }
 
-        //dd($matchingPatterns);
         return array_shift($matchingPatterns);
     }
 
