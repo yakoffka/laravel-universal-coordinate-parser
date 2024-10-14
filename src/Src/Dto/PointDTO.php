@@ -11,10 +11,14 @@ class PointDTO
     /**
      * @param float $lat - Широта точки в градусах
      * @param float $lon - Долгота точки в градусах
+     * @param string $src - Исходная строка координат
+     * @param string $pattern - Наименование паттерна, обнаружившего соответствие
      */
     public function __construct(
         public float $lat,
         public float $lon,
+        public string $src,
+        public string $pattern,
     )
     {
     }
@@ -24,33 +28,17 @@ class PointDTO
      *
      * @param float $latDeg - Широта точки в градусах
      * @param float $lonDeg - Долгота точки в градусах
+     * @param string $src - Исходная строка координат
+     * @param string $pattern - Наименование паттерна, обнаружившего соответствие
      * @return PointDTO
      */
-    #[Pure] public static function fromLatLon(float $latDeg, float $lonDeg): PointDTO
+    public static function fromLatLon(float $latDeg, float $lonDeg, string $src, string $pattern): PointDTO
     {
         return new self(
             lat: round($latDeg, 6),
             lon: round($lonDeg, 6),
+            src: $src,
+            pattern: $pattern,
         );
-    }
-
-    /**
-     * @throws WrongLongitudeException
-     */
-    public static function checkLongitude(float $lonDeg): void
-    {
-        if ($lonDeg < -180 or $lonDeg > 180) {
-            throw new WrongLongitudeException("$lonDeg");
-        }
-    }
-
-    /**
-     * @throws WrongLatitudeException
-     */
-    public static function checkLatitude(float $latDeg): void
-    {
-        if ($latDeg < -90 or $latDeg > 90) {
-            throw new WrongLatitudeException("$latDeg");
-        }
     }
 }

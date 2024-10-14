@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
+use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
@@ -21,18 +21,20 @@ class Pattern02 extends AbstractPattern
     . '(?<lnL02>W|E))$~';
 
     /**
-     * @param string $t02
+     * @param string $src
      * @param float|int $ltD02
      * @param string $ltL02
      * @param float|int $lnD02
      * @param string $lnL02
+     * @param string $name
      */
     public function __construct(
-        public string    $t02,
+        public string    $src,
         public float|int $ltD02,
         public string    $ltL02,
         public float|int $lnD02,
         public string    $lnL02,
+        public string    $name = 'pattern02',
     )
     {
     }
@@ -44,7 +46,7 @@ class Pattern02 extends AbstractPattern
     public static function from(array $params): static
     {
         return new static(
-            t02: $params['t02'],
+            src: $params['t02'],
             ltD02: (float)$params['ltD02'],
             ltL02: $params['ltL02'],
             lnD02: (float)$params['lnD02'],

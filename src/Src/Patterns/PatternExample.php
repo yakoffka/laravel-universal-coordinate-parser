@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
+use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
@@ -22,17 +22,31 @@ class PatternExample extends AbstractPattern
     public const REGEX_EXAMPLE = '~regex~';
 
     /**
-     * @var string $src 'example_src_string'
+     * @param string $src
+     * @param float|int $ltDExample
+     * @param float|int $ltMExample
+     * @param float|int $ltSecExample
+     * @param string $ltLExample
+     * @param float|int $lnDExample
+     * @param float|int $lnMExample
+     * @param float|int $lnSecExample
+     * @param string $lnLExample
+     * @param string $name
      */
-    public string $src;
-    public float|int $ltDExample;
-    public float|int $ltMExample;
-    public float|int $ltSecExample;
-    public string $ltLExample;
-    public float|int $lnDExample;
-    public float|int $lnMExample;
-    public float|int $lnSecExample;
-    public string $lnLExample;
+    public function __construct(
+        public string    $src,
+        public float|int $ltDExample,
+        public float|int $ltMExample,
+        public float|int $ltSecExample,
+        public string    $ltLExample,
+        public float|int $lnDExample,
+        public float|int $lnMExample,
+        public float|int $lnSecExample,
+        public string    $lnLExample,
+        public string    $name = 'patternExample',
+    )
+    {
+    }
 
     /**
      * @param array $params
@@ -41,11 +55,15 @@ class PatternExample extends AbstractPattern
     public static function from(array $params): static
     {
         return new static(
-            t02: $params['t02'],
-            ltD02: (float)$params['ltD02'],
-            ltL02: $params['ltL02'],
-            lnD02: (float)$params['lnD02'],
-            lnL02: $params['lnL02'],
+            src: $params['t01'],
+            ltDExample: $params['ltDExample'],
+            ltMExample: $params['ltMExample'],
+            ltSecExample: $params['ltSecExample'],
+            ltLExample: $params['ltLExample'],
+            lnDExample: $params['lnDExample'],
+            lnMExample: $params['lnMExample'],
+            lnSecExample: $params['lnSecExample'],
+            lnLExample: $params['lnLExample'],
         );
     }
 

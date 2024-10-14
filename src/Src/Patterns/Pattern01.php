@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
+use Illuminate\Support\Arr;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
+use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
@@ -25,26 +26,32 @@ class Pattern01 extends AbstractPattern
     . '(?:(?<lnM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)(?:(?<lnSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<lnL01>W|E))$~';
 
     /**
-     * @param string $t01
-     * @param float|int $ltD01
-     * @param float|int $ltM01
-     * @param float|int $ltSec01
-     * @param string $ltL01
-     * @param float|int $lnD01
-     * @param float|int $lnM01
-     * @param float|int $lnSec01
-     * @param string $lnL01
+     * @param string $src
+     * @param float|int $ltDegrees
+     * @param float|int $ltMinutes
+     * @param float|int $ltSeconds
+     * @param string $ltLetter
+     * @param null $ltSign
+     * @param float|int $lnDegrees
+     * @param float|int $lnMinutes
+     * @param float|int $lnSeconds
+     * @param string $lnLetter
+     * @param null $lnSign
+     * @param string $name
      */
     public function __construct(
-        public string    $t01,
-        public float|int $ltD01,
-        public float|int $ltM01,
-        public float|int $ltSec01,
-        public string    $ltL01,
-        public float|int $lnD01,
-        public float|int $lnM01,
-        public float|int $lnSec01,
-        public string    $lnL01,
+        public string    $src,
+        public float|int $ltDegrees,
+        public float|int $ltMinutes,
+        public float|int $ltSeconds,
+        public string    $ltLetter,
+        public null      $ltSign,
+        public float|int $lnDegrees,
+        public float|int $lnMinutes,
+        public float|int $lnSeconds,
+        public string    $lnLetter,
+        public null      $lnSign,
+        public string    $name = 'pattern01',
     )
     {
     }
@@ -56,15 +63,17 @@ class Pattern01 extends AbstractPattern
     public static function from(array $params): static
     {
         return new static(
-            t01: $params['t01'],
-            ltD01: $params['ltD01'],
-            ltM01: $params['ltM01'],
-            ltSec01: $params['ltSec01'],
-            ltL01: $params['ltL01'],
-            lnD01: $params['lnD01'],
-            lnM01: $params['lnM01'],
-            lnSec01: $params['lnSec01'],
-            lnL01: $params['lnL01'],
+            src: $params['t01'],
+            ltDegrees: (float)$params['ltD01'],
+            ltMinutes: (float)Arr::get($params, 'ltM01', 0),
+            ltSeconds: (float)Arr::get($params, 'ltSec01', 0),
+            ltLetter: $params['ltL01'],
+            ltSign: null,
+            lnDegrees: (float)$params['lnD01'],
+            lnMinutes: (float)Arr::get($params, 'lnM01', 0),
+            lnSeconds: (float)Arr::get($params, 'lnSec01', 0),
+            lnLetter: $params['lnL01'],
+            lnSign: null,
         );
     }
 
@@ -75,24 +84,5 @@ class Pattern01 extends AbstractPattern
     public function parse(string $src): PointDTO
     {
         // TODO: Implement parse() method.
-        return PointDTO::fromLatLon(0,0);
-    }
-
-    /**
-     * @return float
-     */
-    protected function getLat(): float
-    {
-        // @todo реализовать!
-        return 0.0;
-    }
-
-    /**
-     * @return float
-     */
-    protected function getLon(): float
-    {
-        // @todo реализовать!
-        return 0.0;
     }
 }
