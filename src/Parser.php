@@ -18,6 +18,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern07;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern08;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern09;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern10;
 
 /**
  * Универсальный парсер координат.
@@ -25,32 +26,12 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern09;
  */
 class Parser
 {
-//     /**
-//      * Универсальный шаблон
-//      *
-//      * https://regex101.com/r/pqVQ3w/9
-//      */
-//     public const UNIVERSAL_REGEX = '~^('
-//     . '?<t01>(?<ltD01>\d{1,2}(?:(?:\.\d{1,6})|))°(?:(?<ltM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)'
-//     . '(?:(?<ltSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<ltL01>N|S)/(?<lnD01>\d{1,3}(?:(?:\.\d{1,6})|))°'
-//     . '(?:(?<lnM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)(?:(?<lnSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<lnL01>W|E))$'
-//     . '|^(?<t02>(?<ltD02>\d{1,2}(?:\.\d{1,6}|))(?<ltL02>N|S)/(?<lnD02>\d{1,3}(?:\.\d{1,6}|))(?<lnL02>W|E))$'
-//     . '|^(?<t03>(?<ltS03>-|)(?<ltD03>\d{1,2}(?:\.\d{1,6}|))(?:/|,|(?:, ))(?<lnS03>-|)(?<lnD03>\d{1,3}(?:\.\d{1,6}|)))$'
-//     . '|^(?<t05>(?<ltD05>\d{2})(?<ltM05>\d{2})(?<ltS05>\d{2})(?<ltL05>N|S)/(?<lnD05>\d{3})(?<lnM05>\d{2})'
-//     . '(?<lnS05>\d{2})(?<lnL05>W|E))$'
-//     . '|^(?<t06>(?<ltS06>-|)(?<ltD06>\d{2})(?<ltM06>\d{2})(?<ltSec06>\d{2})/(?<lnS06>-|)(?<lnD06>\d{3})'
-//     . '(?<lnM06>\d{2})(?<lnSec06>\d{2}))$'
-//     . '|^(?<t07>(?<ltD07>\d{2})(?<ltM07>\d{2}\.\d{2})(?<ltL07>S|N)/(?<lnD07>\d{3})(?<lnM07>\d{2}\.\d{2})(?<lnL07>W|E))$'
-//     . '|^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$'
-//     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
-//     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$~';
-
     /**
      * Универсальный шаблон
      *
      * https://regex101.com/r/pqVQ3w/9
      */
-    public const UNIVERSAL_REGEX = '~'
+    public const REGEX = '~'
     . Pattern01::REGEX
     . '|' . Pattern02::REGEX
     . '|' . Pattern03::REGEX
@@ -59,16 +40,8 @@ class Parser
     . '|' . Pattern07::REGEX
     . '|' . Pattern08::REGEX
     . '|' . Pattern09::REGEX
-    . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
+    . '|' . Pattern10::REGEX
     . '~';
-
-    /**
-     * Шаблон 10: ТС-2013 число представлено в жестком формате GGMMSGGGMMS
-     *
-     * https://regex101.com/r/AE6g5S/3
-     */
-    public const REGEX_10 = '~^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})'
-    . '(?<lnL10>W|E))$~';
 
     /**
      * @var array|string[]
@@ -114,7 +87,7 @@ class Parser
      */
     public function getMatches(string $subject, &$matches): mixed
     {
-        $res = preg_match(self::UNIVERSAL_REGEX, $subject, $matches, PREG_UNMATCHED_AS_NULL);
+        $res = preg_match(self::REGEX, $subject, $matches, PREG_UNMATCHED_AS_NULL);
         if ($res === false) {
             throw new RuntimeException('Invalid subject');
         }
@@ -138,7 +111,7 @@ class Parser
             't07' => Pattern07::from($params),
             't08' => Pattern08::from($params),
             't09' => Pattern09::from($params),
-            // 't10' => '', // Pattern10::from($params),
+            't10' => Pattern10::from($params),
         };
     }
 
