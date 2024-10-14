@@ -20,12 +20,12 @@ class Pattern02 extends AbstractPattern
 
     /**
      * @param string $src
-     * @param float|int $ltDegrees
+     * @param float $ltDegrees
      * @param null $ltMinutes
      * @param null $ltSeconds
      * @param string $ltLetter
      * @param null $ltSign
-     * @param float|int $lnDegrees
+     * @param float $lnDegrees
      * @param null $lnMinutes
      * @param null $lnSeconds
      * @param string $lnLetter
@@ -33,18 +33,18 @@ class Pattern02 extends AbstractPattern
      * @param string $name
      */
     public function __construct(
-        public string    $src,
-        public float|int $ltDegrees,
-        public null      $ltMinutes,
-        public null      $ltSeconds,
-        public string    $ltLetter,
-        public null      $ltSign,
-        public float|int $lnDegrees,
-        public null      $lnMinutes,
-        public null      $lnSeconds,
-        public string    $lnLetter,
-        public null      $lnSign,
-        public string    $name = 'pattern02',
+        public string $src,
+        public float  $ltDegrees,
+        public null   $ltMinutes,
+        public null   $ltSeconds,
+        public string $ltLetter,
+        public null   $ltSign,
+        public float  $lnDegrees,
+        public null   $lnMinutes,
+        public null   $lnSeconds,
+        public string $lnLetter,
+        public null   $lnSign,
+        public string $name = 'pattern02',
     )
     {
     }

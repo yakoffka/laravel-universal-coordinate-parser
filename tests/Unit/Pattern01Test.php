@@ -10,7 +10,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
 use Yakoffka\UniversalCoordinateParser\Tests\TestCase;
 
 /**
- * Тестирование разбора координат для первого паттерна
+ * Тестирование разбора координат для паттерна 01
  *
  * ./vendor/bin/phpunit --filter Pattern01Test
  */

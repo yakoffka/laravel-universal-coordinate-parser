@@ -24,31 +24,31 @@ class Pattern01 extends AbstractPattern
 
     /**
      * @param string $src
-     * @param float|int $ltDegrees
-     * @param float|int $ltMinutes
-     * @param float|int $ltSeconds
+     * @param float $ltDegrees
+     * @param float $ltMinutes
+     * @param float $ltSeconds
      * @param string $ltLetter
      * @param null $ltSign
-     * @param float|int $lnDegrees
-     * @param float|int $lnMinutes
-     * @param float|int $lnSeconds
+     * @param float $lnDegrees
+     * @param float $lnMinutes
+     * @param float $lnSeconds
      * @param string $lnLetter
      * @param null $lnSign
      * @param string $name
      */
     public function __construct(
-        public string    $src,
-        public float|int $ltDegrees,
-        public float|int $ltMinutes,
-        public float|int $ltSeconds,
-        public string    $ltLetter,
-        public null      $ltSign,
-        public float|int $lnDegrees,
-        public float|int $lnMinutes,
-        public float|int $lnSeconds,
-        public string    $lnLetter,
-        public null      $lnSign,
-        public string    $name = 'pattern01',
+        public string $src,
+        public float  $ltDegrees,
+        public float  $ltMinutes,
+        public float  $ltSeconds,
+        public string $ltLetter,
+        public null   $ltSign,
+        public float  $lnDegrees,
+        public float  $lnMinutes,
+        public float  $lnSeconds,
+        public string $lnLetter,
+        public null   $lnSign,
+        public string $name = 'pattern01',
     )
     {
     }

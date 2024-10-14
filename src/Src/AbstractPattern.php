@@ -42,7 +42,7 @@ abstract class AbstractPattern
      */
     protected function getLat(): float
     {
-        $lat = ($this->ltSign ?? $this->getMultiplier($this->ltLetter)) * (
+        $lat = $this->getMultiplier($this->ltSign ?? $this->ltLetter) * (
                 $this->ltDegrees
                 + $this->ltMinutes / 60
                 + $this->ltSeconds / 3600
@@ -62,7 +62,7 @@ abstract class AbstractPattern
      */
     protected function getLon(): float
     {
-        $lon = ($this->lnSign ?? $this->getMultiplier($this->lnLetter)) * (
+        $lon = $this->getMultiplier($this->lnSign ?? $this->lnLetter) * (
                 $this->lnDegrees
                 + $this->lnMinutes / 60
                 + $this->lnSeconds / 3600
@@ -83,8 +83,8 @@ abstract class AbstractPattern
     protected function getMultiplier($letter): int
     {
         return match ($letter) {
-            'E', 'N' => 1,
-            'W', 'S' => -1,
+            'E', 'N', '' => 1,
+            'W', 'S', '-' => -1,
             default => throw new WrongLetterException("Неверное обозначение координаты '$letter'"),
         };
     }

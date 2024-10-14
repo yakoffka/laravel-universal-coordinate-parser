@@ -9,6 +9,7 @@ use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern01;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern02;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
 
 /**
  * Универсальный парсер координат.
@@ -35,12 +36,7 @@ class Parser
 //     . '|^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$'
 //     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
 //     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$~';
-    /**
-     * Универсальный шаблон
-     *
-     * https://regex101.com/r/pqVQ3w/9
-     */
-    public const REGEX = Pattern01::REGEX;
+
     /**
      * Универсальный шаблон
      *
@@ -49,7 +45,7 @@ class Parser
     public const UNIVERSAL_REGEX = '~'
     . Pattern01::REGEX
     . '|' . Pattern02::REGEX
-    . '|^(?<t03>(?<ltS03>-|)(?<ltD03>\d{1,2}(?:\.\d{1,6}|))(?:/|,|(?:, ))(?<lnS03>-|)(?<lnD03>\d{1,3}(?:\.\d{1,6}|)))$'
+    . '|' . Pattern03::REGEX
     . '|^(?<t05>(?<ltD05>\d{2})(?<ltM05>\d{2})(?<ltS05>\d{2})(?<ltL05>N|S)/(?<lnD05>\d{3})(?<lnM05>\d{2})'
     . '(?<lnS05>\d{2})(?<lnL05>W|E))$'
     . '|^(?<t06>(?<ltS06>-|)(?<ltD06>\d{2})(?<ltM06>\d{2})(?<ltSec06>\d{2})/(?<lnS06>-|)(?<lnD06>\d{3})'
@@ -61,38 +57,9 @@ class Parser
     . '~';
 
     /**
-     * Шаблон 01: значения в градусах, минутах и секундах с возможной дробной частью, разделителем в виде слэша,
-     * буквенным обозначением и обозначением градусов, минут и секунд
-     *
-     * https://regex101.com/r/P4Pv8c/9
-     */
-    public const REGEX_01 = '~^(?<t01>'
-    . '(?<ltD01>\d{1,2}(?:(?:\.\d{1,6})|))°(?:(?<ltM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)'
-    . '(?:(?<ltSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<ltL01>N|S)/(?<lnD01>\d{1,3}(?:(?:\.\d{1,6})|))°'
-    . '(?:(?<lnM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)(?:(?<lnSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<lnL01>W|E))$~';
-
-    /**
-     * Шаблон 02: значения в градусах с возможной дробной частью, разделителем в виде слэша и буквенным обозначением
-     *
-     * https://regex101.com/r/Zguahj/5
-     */
-    public const REGEX_02 = '~^(?<t02>(?<ltD02>\d{1,2}(?:\.\d{1,6}|))(?<ltL02>N|S)/(?<lnD02>\d{1,3}(?:\.\d{1,6}|))'
-    . '(?<lnL02>W|E))$~';
-
-    /**
-     * Шаблон 03: DD.dd (with a minus) in ForeFlight (36.01/-75.50 equivalent 36.01°N/75.5°W)
-     * значения в градусах с возможной дробной частью, разделителем в виде слэша, запятой или запятой с пробелом и без
-     * буквенного обозначения
-     *
-     * https://regex101.com/r/D3AGHV/4
-     */
-    public const REGEX_03 = '~^(?<t03>(?<ltS03>-|)(?<ltD03>\d{1,2}(?:\.\d{1,6}|))(?:/|,|(?:, ))(?<lnS03>-|)'
-    . '(?<lnD03>\d{1,3}(?:\.\d{1,6}|)))$~';
-
-    /**
      * Шаблон 05: DD°MM′SS″ (with letters) in ForeFlight (360051N/0753004W equivalent 36°00′51″N/75°30′04″W)
      * жестко позиционированные значения в градусах, минутах и секундах без дробной части, разделителем в виде слэша,
-     * буквенным обозначением без проверки значений
+     * буквенным обозначением
      *
      * https://regex101.com/r/UBFTg2/4
      */
@@ -238,7 +205,7 @@ class Parser
         return match ($this->getPatternName($params, $subject)) {
             't01' => Pattern01::from($params),
             't02' => Pattern02::from($params),
-            // 't03' => '', // Pattern03::from($params),
+            't03' => Pattern03::from($params),
             // // 't04' => '', // Pattern04::from($params),
             // 't05' => '', // Pattern05::from($params),
             // 't06' => '', // Pattern06::from($params),
