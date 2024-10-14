@@ -7,9 +7,13 @@ use Illuminate\Support\Arr;
 use RuntimeException;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern01;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern02;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
 
 /**
  * Универсальный парсер координат.
@@ -46,8 +50,7 @@ class Parser
     . Pattern01::REGEX
     . '|' . Pattern02::REGEX
     . '|' . Pattern03::REGEX
-    . '|^(?<t05>(?<ltD05>\d{2})(?<ltM05>\d{2})(?<ltS05>\d{2})(?<ltL05>N|S)/(?<lnD05>\d{3})(?<lnM05>\d{2})'
-    . '(?<lnS05>\d{2})(?<lnL05>W|E))$'
+    . '|' . Pattern05::REGEX
     . '|^(?<t06>(?<ltS06>-|)(?<ltD06>\d{2})(?<ltM06>\d{2})(?<ltSec06>\d{2})/(?<lnS06>-|)(?<lnD06>\d{3})'
     . '(?<lnM06>\d{2})(?<lnSec06>\d{2}))$'
     . '|^(?<t07>(?<ltD07>\d{2})(?<ltM07>\d{2}\.\d{2})(?<ltL07>S|N)/(?<lnD07>\d{3})(?<lnM07>\d{2}\.\d{2})(?<lnL07>W|E))$'
@@ -55,16 +58,6 @@ class Parser
     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
     . '~';
-
-    /**
-     * Шаблон 05: DD°MM′SS″ (with letters) in ForeFlight (360051N/0753004W equivalent 36°00′51″N/75°30′04″W)
-     * жестко позиционированные значения в градусах, минутах и секундах без дробной части, разделителем в виде слэша,
-     * буквенным обозначением
-     *
-     * https://regex101.com/r/UBFTg2/4
-     */
-    public const REGEX_05 = '~^(?<t05>(?<ltD05>\d{2})(?<ltM05>\d{2})(?<ltSec05>\d{2})(?<ltL05>N|S)/(?<lnD05>\d{3})'
-    . '(?<lnM05>\d{2})(?<lnSec05>\d{2})(?<lnL05>W|E))$~';
 
     /**
      * Шаблон 06: DD°MM′SS″ (with a minus) in ForeFlight (360051/-0753004 equivalent 36°00′51″N/75°30′04″W)
@@ -132,6 +125,9 @@ class Parser
      *
      * @param string $subject строка координат без указания формата
      * @return PointDTO
+     * @throws WrongLatitudeException
+     * @throws WrongLetterException
+     * @throws WrongLongitudeException
      */
     public function getPointDto(string $subject): PointDto
     {
@@ -142,44 +138,6 @@ class Parser
 
         return $pattern->toPointDto();
     }
-//
-//    /**
-//     * Разбор строки координат на основе универсального шаблона #1
-//     *
-//     * @param string $subject строка координат без указания формата
-//     * @return PointDTO
-//     */
-//    public static function parseByO1(string $subject): PointDto
-//    {
-//        $res = preg_match(self::REGEX_01, $subject, $matches);
-//
-//        if ($res !== false) {
-//            dd($matches);
-//        } else {
-//            dd($res);
-//        }
-//
-//        return new PointDTO(0, 0);
-//    }
-//
-//    /**
-//     * Разбор строки координат на основе универсального шаблона #2
-//     *
-//     * @param string $subject строка координат без указания формата
-//     * @return PointDTO
-//     */
-//    public static function parseByO2(string $subject): PointDto
-//    {
-//        $res = preg_match(self::REGEX_02, $subject, $matches);
-//
-//        if ($res !== false) {
-//            dd($matches);
-//        } else {
-//            dd($res);
-//        }
-//
-//        return new PointDTO(0, 0);
-//    }
 
     /**
      * @param string $subject
@@ -206,8 +164,8 @@ class Parser
             't01' => Pattern01::from($params),
             't02' => Pattern02::from($params),
             't03' => Pattern03::from($params),
-            // // 't04' => '', // Pattern04::from($params),
-            // 't05' => '', // Pattern05::from($params),
+            // 't04' => '', // Pattern04::from($params),
+            't05' => Pattern05::from($params),
             // 't06' => '', // Pattern06::from($params),
             // 't07' => '', // Pattern07::from($params),
             // 't08' => '', // Pattern08::from($params),
@@ -226,7 +184,7 @@ class Parser
         $matchingPatterns = array_intersect(array_keys($this->patterns), array_keys($params));
         // dd($matchingPatterns);
 
-        if (count($matchingPatterns) !== 1) {
+        if (count($matchingPatterns) > 1) {
             throw new RuntimeException("Найдено совпадение с более, чем одним шаблоном для '$subject': "
                 . implode(', ', $matchingPatterns));
 

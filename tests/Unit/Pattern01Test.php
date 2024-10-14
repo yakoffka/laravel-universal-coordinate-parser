@@ -6,6 +6,7 @@ namespace Yakoffka\UniversalCoordinateParser\Tests\Unit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
 use Yakoffka\UniversalCoordinateParser\Tests\TestCase;
 
@@ -19,9 +20,16 @@ class Pattern01Test extends TestCase
     /**
      * Успешное получение PointDto на основе переданной строки координат в ожидаемом формате
      *
+     * @param string $src
+     * @param float $lat
+     * @param float $lon
+     * @param string $pattern
      * @return void
      *
      * docker compose exec php php artisan test --filter pattern01Success
+     * @throws WrongLatitudeException
+     * @throws WrongLongitudeException
+     * @throws WrongLetterException
      */
     #[DataProvider('successProvider')] #[Test]
     public function pattern01Success(string $src, float $lat, float $lon, string $pattern): void
@@ -38,9 +46,16 @@ class Pattern01Test extends TestCase
      * Неуспешное получение PointDto на основе переданной строки координат в ожидаемом формате с неверными значениями
      * долготы
      *
+     * @param string $src
+     * @param float $lat
+     * @param float $lon
+     * @param string $pattern
      * @return void
      *
      * docker compose exec php php artisan test --filter pattern01WrongLatitude
+     * @throws WrongLatitudeException
+     * @throws WrongLetterException
+     * @throws WrongLongitudeException
      */
     #[DataProvider('wrongLatitudeProvider')] #[Test]
     public function pattern01WrongLatitude(string $src, float $lat, float $lon, string $pattern): void
@@ -54,9 +69,16 @@ class Pattern01Test extends TestCase
      * Неуспешное получение PointDto на основе переданной строки координат в ожидаемом формате с неверными значениями
      * долготы
      *
+     * @param string $src
+     * @param float $lat
+     * @param float $lon
+     * @param string $pattern
      * @return void
      *
      * docker compose exec php php artisan test --filter pattern01WrongLongitude
+     * @throws WrongLatitudeException
+     * @throws WrongLetterException
+     * @throws WrongLongitudeException
      */
     #[DataProvider('wrongLongitudeProvider')] #[Test]
     public function pattern01WrongLongitude(string $src, float $lat, float $lon, string $pattern): void
@@ -74,6 +96,7 @@ class Pattern01Test extends TestCase
     {
         return [
             // only degrees
+            ['00°N/000°W', 0, -0, 'pattern01'],
             ['36°N/75°W', 36, -75, 'pattern01'],
             ['36°S/75°E', -36, 75, 'pattern01'],
             ['90°N/180°W', 90, -180, 'pattern01'],
