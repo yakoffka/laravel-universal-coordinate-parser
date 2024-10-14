@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\UniversalCoordinateParser\Src;
+namespace Yakoffka\UniversalCoordinateParser\Patterns;
 
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
+use Yakoffka\UniversalCoordinateParser\Dto\PointDTO;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLatitudeException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLetterException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLongitudeException;
 
 abstract class AbstractPattern
 {

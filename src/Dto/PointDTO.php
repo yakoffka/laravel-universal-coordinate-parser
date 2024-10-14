@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\UniversalCoordinateParser\Src\Dto;
+namespace Yakoffka\UniversalCoordinateParser\Dto;
 
 /**
  * DTO для передачи данных о точках

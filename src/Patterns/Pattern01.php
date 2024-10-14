@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
+namespace Yakoffka\UniversalCoordinateParser\Patterns;
 
 use Illuminate\Support\Arr;
-use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 
 /**
  * Шаблон 01 '36°00′51″N/75°30′04″W'

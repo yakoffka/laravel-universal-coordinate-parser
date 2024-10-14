@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace Yakoffka\UniversalCoordinateParser\Enums;
 
-use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern01;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern02;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern07;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern08;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern09;
-use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern10;
+use Yakoffka\UniversalCoordinateParser\Patterns\AbstractPattern;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern01;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern02;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern03;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern05;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern06;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern07;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern08;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern09;
+use Yakoffka\UniversalCoordinateParser\Patterns\Pattern10;
 
 enum PatternType: string
 {

@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
-
-use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
+namespace Yakoffka\UniversalCoordinateParser\Patterns;
 
 /**
  * Шаблон 06 '360061N/0753004W'

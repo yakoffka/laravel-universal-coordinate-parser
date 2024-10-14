@@ -5,10 +5,10 @@ namespace Yakoffka\UniversalCoordinateParser\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\PatternNotFoundException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\PatternNotFoundException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLatitudeException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLetterException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLongitudeException;
 use Yakoffka\UniversalCoordinateParser\Tests\TestCase;
 
 /**

@@ -5,13 +5,13 @@ namespace Yakoffka\UniversalCoordinateParser;
 
 use Illuminate\Support\Arr;
 use RuntimeException;
+use Yakoffka\UniversalCoordinateParser\Dto\PointDTO;
 use Yakoffka\UniversalCoordinateParser\Enums\PatternType;
-use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\PatternNotFoundException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
-use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\PatternNotFoundException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLatitudeException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLetterException;
+use Yakoffka\UniversalCoordinateParser\Exceptions\WrongLongitudeException;
+use Yakoffka\UniversalCoordinateParser\Patterns\AbstractPattern;
 
 /**
  * Универсальный парсер координат.
