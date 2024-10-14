@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
@@ -12,37 +11,40 @@ use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 class PatternExample extends AbstractPattern
 {
     /**
-     * Шаблон Example '36°00′51″N/75°30′04″W'
+     * Шаблон Example 'DDDDDDDDDDDDDDDDDDDDDDDDD'
      *
-     * Значения в градусах, минутах и секундах с возможной дробной частью, разделителем в виде слеша, буквенным
-     * обозначением и обозначением градусов, минут и секунд
+     * DESCRIPTION
      *
      * link_to_regex
      */
-    public const REGEX_EXAMPLE = '~regex~';
+    public const REGEX = 'regex';
 
     /**
      * @param string $src
-     * @param float|int $ltDExample
-     * @param float|int $ltMExample
-     * @param float|int $ltSecExample
-     * @param string $ltLExample
-     * @param float|int $lnDExample
-     * @param float|int $lnMExample
-     * @param float|int $lnSecExample
-     * @param string $lnLExample
+     * @param float|int $ltDegrees
+     * @param float|int $ltMinutes
+     * @param float|int $ltSeconds
+     * @param string $ltLetter
+     * @param string $ltSign
+     * @param float|int $lnDegrees
+     * @param float|int $lnMinutes
+     * @param float|int $lnSeconds
+     * @param string $lnLetter
+     * @param string $lnSign
      * @param string $name
      */
     public function __construct(
         public string    $src,
-        public float|int $ltDExample,
-        public float|int $ltMExample,
-        public float|int $ltSecExample,
-        public string    $ltLExample,
-        public float|int $lnDExample,
-        public float|int $lnMExample,
-        public float|int $lnSecExample,
-        public string    $lnLExample,
+        public float|int $ltDegrees,
+        public float|int $ltMinutes,
+        public float|int $ltSeconds,
+        public string    $ltLetter,
+        public string    $ltSign,
+        public float|int $lnDegrees,
+        public float|int $lnMinutes,
+        public float|int $lnSeconds,
+        public string    $lnLetter,
+        public string    $lnSign,
         public string    $name = 'patternExample',
     )
     {
@@ -55,24 +57,17 @@ class PatternExample extends AbstractPattern
     public static function from(array $params): static
     {
         return new static(
-            src: $params['t01'],
-            ltDExample: $params['ltDExample'],
-            ltMExample: $params['ltMExample'],
-            ltSecExample: $params['ltSecExample'],
-            ltLExample: $params['ltLExample'],
-            lnDExample: $params['lnDExample'],
-            lnMExample: $params['lnMExample'],
-            lnSecExample: $params['lnSecExample'],
-            lnLExample: $params['lnLExample'],
+            src: $params['tExample'],
+            ltDegrees: $params['ltDExample'],
+            ltMinutes: $params['ltMExample'],
+            ltSeconds: $params['ltSecExample'],
+            ltLetter: $params['ltLExample'],
+            ltSign: $params['ltSign'],
+            lnDegrees: $params['lnDExample'],
+            lnMinutes: $params['lnMExample'],
+            lnSeconds: $params['lnSecExample'],
+            lnLetter: $params['lnLExample'],
+            lnSign: $params['lnSign'],
         );
-    }
-
-    /**
-     * @param string $src
-     * @return PointDTO
-     */
-    public function parse(string $src): PointDTO
-    {
-        // TODO: Implement parse() method.
     }
 }

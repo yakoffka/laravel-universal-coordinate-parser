@@ -17,10 +17,12 @@ abstract class AbstractPattern
     abstract public static function from(array $params): static;
 
     /**
-     * @param string $src
-     * @return PointDTO
+     * @return string
      */
-    abstract public function parse(string $src): PointDTO;
+    public static function getRegexWithoutDelimiter(): string
+    {
+        return substr(static::REGEX, 1, strlen(static::REGEX)) - 2;
+    }
 
     /**
      * @return PointDTO

@@ -5,25 +5,22 @@ namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
 use Illuminate\Support\Arr;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
- * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
+ * Шаблон 01 '36°00′51″N/75°30′04″W'
+ *
+ * Значения в градусах, минутах и секундах с возможной дробной частью, разделителем в виде слэша, буквенным
+ * обозначением и обозначением градусов, минут и секунд
  */
 class Pattern01 extends AbstractPattern
 {
     /**
-     * Шаблон 01 '36°00′51″N/75°30′04″W'
-     *
-     * Значения в градусах, минутах и секундах с возможной дробной частью, разделителем в виде слеша, буквенным
-     * обозначением и обозначением градусов, минут и секунд
-     *
      * https://regex101.com/r/P4Pv8c/9
      */
-    public const REGEX_01 = '~^(?<t01>'
+    public const REGEX = '^(?<t01>'
     . '(?<ltD01>\d{1,2}(?:(?:\.\d{1,6})|))°(?:(?<ltM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)'
     . '(?:(?<ltSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<ltL01>N|S)/(?<lnD01>\d{1,3}(?:(?:\.\d{1,6})|))°'
-    . '(?:(?<lnM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)(?:(?<lnSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<lnL01>W|E))$~';
+    . '(?:(?<lnM01>\d{1,2}(?:(?:\.\d{1,6})|))′|)(?:(?<lnSec01>\d{1,2}(?:(?:\.\d{1,6})|))″|)(?<lnL01>W|E))$';
 
     /**
      * @param string $src
@@ -75,14 +72,5 @@ class Pattern01 extends AbstractPattern
             lnLetter: $params['lnL01'],
             lnSign: null,
         );
-    }
-
-    /**
-     * @param string $src
-     * @return PointDTO
-     */
-    public function parse(string $src): PointDTO
-    {
-        // TODO: Implement parse() method.
     }
 }

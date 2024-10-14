@@ -4,36 +4,46 @@ declare(strict_types=1);
 namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
-use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
 
 /**
- * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
+ * Шаблон 02 '36.01N/75.50W'
+ *
+ * Значения в градусах с возможной дробной частью, разделителем в виде слэша и буквенным обозначением
  */
 class Pattern02 extends AbstractPattern
 {
     /**
-     * 36.01N/75.50W
-     * Шаблон 02: значения в градусах с возможной дробной частью, разделителем в виде слеша и буквенным обозначением
-     *
      * https://regex101.com/r/Zguahj/5
      */
-    public const REGEX_02 = '~^(?<t02>(?<ltD02>\d{1,2}(?:\.\d{1,6}|))(?<ltL02>N|S)/(?<lnD02>\d{1,3}(?:\.\d{1,6}|))'
-    . '(?<lnL02>W|E))$~';
+    public const REGEX = '^(?<t02>(?<ltD02>\d{1,2}(?:\.\d{1,6}|))(?<ltL02>N|S)/(?<lnD02>\d{1,3}(?:\.\d{1,6}|))'
+    . '(?<lnL02>W|E))$';
 
     /**
      * @param string $src
-     * @param float|int $ltD02
-     * @param string $ltL02
-     * @param float|int $lnD02
-     * @param string $lnL02
+     * @param float|int $ltDegrees
+     * @param null $ltMinutes
+     * @param null $ltSeconds
+     * @param string $ltLetter
+     * @param null $ltSign
+     * @param float|int $lnDegrees
+     * @param null $lnMinutes
+     * @param null $lnSeconds
+     * @param string $lnLetter
+     * @param null $lnSign
      * @param string $name
      */
     public function __construct(
         public string    $src,
-        public float|int $ltD02,
-        public string    $ltL02,
-        public float|int $lnD02,
-        public string    $lnL02,
+        public float|int $ltDegrees,
+        public null      $ltMinutes,
+        public null      $ltSeconds,
+        public string    $ltLetter,
+        public null      $ltSign,
+        public float|int $lnDegrees,
+        public null      $lnMinutes,
+        public null      $lnSeconds,
+        public string    $lnLetter,
+        public null      $lnSign,
         public string    $name = 'pattern02',
     )
     {
@@ -47,19 +57,16 @@ class Pattern02 extends AbstractPattern
     {
         return new static(
             src: $params['t02'],
-            ltD02: (float)$params['ltD02'],
-            ltL02: $params['ltL02'],
-            lnD02: (float)$params['lnD02'],
-            lnL02: $params['lnL02'],
+            ltDegrees: (float)$params['ltD02'],
+            ltMinutes: null,
+            ltSeconds: null,
+            ltLetter: $params['ltL02'],
+            ltSign: null,
+            lnDegrees: (float)$params['lnD02'],
+            lnMinutes: null,
+            lnSeconds: null,
+            lnLetter: $params['lnL02'],
+            lnSign: null,
         );
-    }
-
-    /**
-     * @param string $src
-     * @return PointDTO
-     */
-    public function parse(string $src): PointDTO
-    {
-        // TODO: Implement parse() method.
     }
 }
