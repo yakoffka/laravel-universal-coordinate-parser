@@ -14,7 +14,7 @@ use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 class Pattern08 extends AbstractPattern
 {
     /**
-     * https://regex101.com/r/o4H23D/3
+     * https://regex101.com/r/o4H23D/4
      */
     public const REGEX = '^(?<t08>(?<ltSign08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnSign08>-|)(?<lnD08>\d{3})'
     . '(?<lnM08>\d{2}\.\d{2}))$';

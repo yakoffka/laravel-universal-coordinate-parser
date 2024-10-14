@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use RuntimeException;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 use Yakoffka\UniversalCoordinateParser\Src\Dto\PointDTO;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\PatternNotFoundException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
@@ -23,6 +24,8 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern10;
 /**
  * Универсальный парсер координат.
  * Преобразует строку координат в одном из распространенных форматов в PointDTO
+ *
+ * @todo обновить общий шаблон и сообщить Виталию!
  */
 class Parser
 {
@@ -68,14 +71,13 @@ class Parser
      * @throws WrongLatitudeException
      * @throws WrongLetterException
      * @throws WrongLongitudeException
+     * @throws PatternNotFoundException
      */
     public function getPointDto(string $subject): PointDto
     {
         $matches = $this->getMatches($subject, $matches);
         $params = $this->cleanMatches($matches);
-        // dd($params);
         $pattern = $this->getPattern($params, $subject);
-        // dd($pattern);
 
         return $pattern->toPointDto();
     }
@@ -84,14 +86,17 @@ class Parser
      * @param string $subject
      * @param $matches
      * @return mixed
+     * @throws PatternNotFoundException
      */
     public function getMatches(string $subject, &$matches): mixed
     {
         $res = preg_match(self::REGEX, $subject, $matches, PREG_UNMATCHED_AS_NULL);
-        if ($res === false) {
-            throw new RuntimeException('Invalid subject');
-        }
-        return $matches;
+
+        return match($res) {
+            false => throw new RuntimeException("An error occurred while parsing '$subject': preg_match()"),
+            0 => throw new PatternNotFoundException("Pattern for '$subject' not found"),
+            default => $matches,
+        };
     }
 
     /**
@@ -125,11 +130,12 @@ class Parser
         $matchingPatterns = array_intersect(array_keys($this->patterns), array_keys($params));
 
         if (count($matchingPatterns) > 1) {
-            throw new RuntimeException("Найдено совпадение с более, чем одним шаблоном для '$subject': "
+            throw new RuntimeException("More than one pattern matched for '$subject': "
                 . implode(', ', $matchingPatterns));
 
         } elseif (count($matchingPatterns) === 0) {
-            throw new RuntimeException("Не найдено совпадений ни с одним одним шаблоном для '$subject'");
+            dump($subject, $params);
+            throw new RuntimeException("No pattern found matching '$subject'");
         }
 
         return array_shift($matchingPatterns);

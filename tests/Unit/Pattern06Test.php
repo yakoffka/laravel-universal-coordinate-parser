@@ -5,6 +5,7 @@ namespace Yakoffka\UniversalCoordinateParser\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Yakoffka\UniversalCoordinateParser\Src\Exceptions\PatternNotFoundException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLatitudeException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLetterException;
 use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
@@ -25,11 +26,10 @@ class Pattern06Test extends TestCase
      * @param float $lon
      * @param string $pattern
      * @return void
-     *
-     * docker compose exec php php artisan test --filter pattern06Success
      * @throws WrongLatitudeException
      * @throws WrongLongitudeException
      * @throws WrongLetterException
+     * @throws PatternNotFoundException
      */
     #[DataProvider('successProvider')] #[Test]
     public function pattern06Success(string $src, float $lat, float $lon, string $pattern): void
@@ -51,18 +51,17 @@ class Pattern06Test extends TestCase
      * @param float $lon
      * @param string $pattern
      * @return void
-     *
-     * docker compose exec php php artisan test --filter pattern06WrongLatitude
      * @throws WrongLatitudeException
      * @throws WrongLetterException
      * @throws WrongLongitudeException
+     * @throws PatternNotFoundException
      */
     #[DataProvider('wrongLatitudeProvider')] #[Test]
     public function pattern06WrongLatitude(string $src, float $lat, float $lon, string $pattern): void
     {
         $this->expectException(WrongLatitudeException::class);
 
-        $pointDto = $this->parser->getPointDto($src);
+        $this->parser->getPointDto($src);
     }
 
     /**
@@ -74,18 +73,17 @@ class Pattern06Test extends TestCase
      * @param float $lon
      * @param string $pattern
      * @return void
-     *
-     * docker compose exec php php artisan test --filter pattern06WrongLongitude
      * @throws WrongLatitudeException
      * @throws WrongLetterException
      * @throws WrongLongitudeException
+     * @throws PatternNotFoundException
      */
     #[DataProvider('wrongLongitudeProvider')] #[Test]
     public function pattern06WrongLongitude(string $src, float $lat, float $lon, string $pattern): void
     {
         $this->expectException(WrongLongitudeException::class);
 
-        $pointDto = $this->parser->getPointDto($src);
+        $this->parser->getPointDto($src);
     }
 
     /**

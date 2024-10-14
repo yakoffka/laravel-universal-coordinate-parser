@@ -13,7 +13,7 @@ use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 class Pattern09 extends AbstractPattern
 {
     /**
-     * https://regex101.com/r/EPBroQ/3
+     * https://regex101.com/r/EPBroQ/4
      */
     public const REGEX = '^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)'
     . '(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$';
