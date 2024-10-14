@@ -20,14 +20,6 @@ abstract class AbstractPattern
     abstract public static function from(array $params): static;
 
     /**
-     * @return string
-     */
-    public static function getRegexWithoutDelimiter(): string
-    {
-        return substr(static::REGEX, 1, strlen(static::REGEX)) - 2;
-    }
-
-    /**
      * @return PointDTO
      * @throws WrongLatitudeException
      * @throws WrongLetterException
