@@ -14,6 +14,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern01;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern02;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
 
 /**
  * Универсальный парсер координат.
@@ -51,23 +52,12 @@ class Parser
     . '|' . Pattern02::REGEX
     . '|' . Pattern03::REGEX
     . '|' . Pattern05::REGEX
-    . '|^(?<t06>(?<ltS06>-|)(?<ltD06>\d{2})(?<ltM06>\d{2})(?<ltSec06>\d{2})/(?<lnS06>-|)(?<lnD06>\d{3})'
-    . '(?<lnM06>\d{2})(?<lnSec06>\d{2}))$'
+    . '|' . Pattern06::REGEX
     . '|^(?<t07>(?<ltD07>\d{2})(?<ltM07>\d{2}\.\d{2})(?<ltL07>S|N)/(?<lnD07>\d{3})(?<lnM07>\d{2}\.\d{2})(?<lnL07>W|E))$'
     . '|^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$'
     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
     . '~';
-
-    /**
-     * Шаблон 06: DD°MM′SS″ (with a minus) in ForeFlight (360051/-0753004 equivalent 36°00′51″N/75°30′04″W)
-     * жестко позиционированные значения в градусах, минутах и секундах без дробной части, разделителем в виде слэша,
-     * без буквенного обозначения
-     *
-     * https://regex101.com/r/4Z8Ttn/5
-     */
-    public const REGEX_06 = '~^(?<t06>(?<ltS06>-|)(?<ltD06>\d{2})(?<ltM06>\d{2})(?<ltSec06>\d{2})/(?<lnS06>-|)'
-    . '(?<lnD06>\d{3})(?<lnM06>\d{2})(?<lnSec06>\d{2}))$~';
 
     /**
      * Шаблон 07: DD°MM.mm (with letters) in ForeFlight (3600.86N/07530.07W equivalent 36°00.86′N/75°30.07′W)
@@ -107,6 +97,10 @@ class Parser
     public const REGEX_10 = '~^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})'
     . '(?<lnL10>W|E))$~';
 
+    /**
+     * @var array|string[]
+     * @todo избыточно!
+     */
     private array $patterns = [
         't01' => Pattern01::class,
         't02' => Pattern02::class,
@@ -135,6 +129,7 @@ class Parser
         $params = $this->cleanMatches($matches);
         // dd($params);
         $pattern = $this->getPattern($params, $subject);
+        // dd($pattern);
 
         return $pattern->toPointDto();
     }
@@ -166,7 +161,7 @@ class Parser
             't03' => Pattern03::from($params),
             // 't04' => '', // Pattern04::from($params),
             't05' => Pattern05::from($params),
-            // 't06' => '', // Pattern06::from($params),
+            't06' => Pattern06::from($params),
             // 't07' => '', // Pattern07::from($params),
             // 't08' => '', // Pattern08::from($params),
             // 't09' => '', // Pattern09::from($params),

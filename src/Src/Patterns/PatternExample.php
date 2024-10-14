@@ -6,6 +6,8 @@ namespace Yakoffka\UniversalCoordinateParser\Src\Patterns;
 use Yakoffka\UniversalCoordinateParser\Src\AbstractPattern;
 
 /**
+ * Шаблон Example 'дддддддддддррррррррррррррррррр'
+ *
  * Класс, описывающий шаблон для строки определенного формата (либо группы схожих форматов).
  */
 class PatternExample extends AbstractPattern
@@ -58,12 +60,12 @@ class PatternExample extends AbstractPattern
             ltMinutes: (float)$params['ltMExample'],
             ltSeconds: (float)$params['ltSecExample'],
             ltLetter: $params['ltLExample'],
-            ltSign: $params['ltSign'],
+            ltSign: $params['ltSignExample'],
             lnDegrees: (float)$params['lnDExample'],
             lnMinutes: (float)$params['lnMExample'],
             lnSeconds: (float)$params['lnSecExample'],
             lnLetter: $params['lnLExample'],
-            lnSign: $params['lnSign'],
+            lnSign: $params['lnSignExample'],
         );
     }
 }
