@@ -8,12 +8,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Yakoffka\\LaravelUniversalCoordinateParser\\": "src/"
+            "Yakoffka\\UniversalCoordinateParser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Yakoffka\\LaravelUniversalCoordinateParser\\Tests\\": "tests/"
+            "Yakoffka\\UniversalCoordinateParser\\Tests\\": "tests/"
         }
     },
     "authors": [
