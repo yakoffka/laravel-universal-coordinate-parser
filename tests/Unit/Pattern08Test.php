@@ -11,11 +11,11 @@ use Yakoffka\UniversalCoordinateParser\Src\Exceptions\WrongLongitudeException;
 use Yakoffka\UniversalCoordinateParser\Tests\TestCase;
 
 /**
- * Тестирование разбора координат для паттерна 07
+ * Тестирование разбора координат для паттерна 08
  *
- * ./vendor/bin/phpunit --filter Pattern07Test
+ * ./vendor/bin/phpunit --filter Pattern08Test
  */
-class Pattern07Test extends TestCase
+class Pattern08Test extends TestCase
 {
     /**
      * Успешное получение PointDto на основе переданной строки координат в ожидаемом формате
@@ -26,13 +26,13 @@ class Pattern07Test extends TestCase
      * @param string $pattern
      * @return void
      *
-     * docker compose exec php php artisan test --filter pattern07Success
+     * docker compose exec php php artisan test --filter pattern08Success
      * @throws WrongLatitudeException
      * @throws WrongLongitudeException
      * @throws WrongLetterException
      */
     #[DataProvider('successProvider')] #[Test]
-    public function pattern07Success(string $src, float $lat, float $lon, string $pattern): void
+    public function pattern08Success(string $src, float $lat, float $lon, string $pattern): void
     {
         $pointDto = $this->parser->getPointDto($src);
 
@@ -52,13 +52,13 @@ class Pattern07Test extends TestCase
      * @param string $pattern
      * @return void
      *
-     * docker compose exec php php artisan test --filter pattern07WrongLatitude
+     * docker compose exec php php artisan test --filter pattern08WrongLatitude
      * @throws WrongLatitudeException
      * @throws WrongLetterException
      * @throws WrongLongitudeException
      */
     #[DataProvider('wrongLatitudeProvider')] #[Test]
-    public function pattern07WrongLatitude(string $src, float $lat, float $lon, string $pattern): void
+    public function pattern08WrongLatitude(string $src, float $lat, float $lon, string $pattern): void
     {
         $this->expectException(WrongLatitudeException::class);
 
@@ -75,13 +75,13 @@ class Pattern07Test extends TestCase
      * @param string $pattern
      * @return void
      *
-     * docker compose exec php php artisan test --filter pattern07WrongLongitude
+     * docker compose exec php php artisan test --filter pattern08WrongLongitude
      * @throws WrongLatitudeException
      * @throws WrongLetterException
      * @throws WrongLongitudeException
      */
     #[DataProvider('wrongLongitudeProvider')] #[Test]
-    public function pattern07WrongLongitude(string $src, float $lat, float $lon, string $pattern): void
+    public function pattern08WrongLongitude(string $src, float $lat, float $lon, string $pattern): void
     {
         $this->expectException(WrongLongitudeException::class);
 
@@ -95,12 +95,12 @@ class Pattern07Test extends TestCase
     public static function successProvider(): array
     {
         return [
-            ['0000.00N/00000.00W', 0, 0, 'pattern07'],
-            ['0000.00S/00000.00E', 0, 0, 'pattern07'],
-            ['3600.86N/07530.07W', 36.014333, -75.501167, 'pattern07'],
-            ['3600.86S/07530.07E', -36.014333, 75.501167, 'pattern07'],
-            ['9000.00N/18000.00W', 90, -180, 'pattern07'],
-            ['9000.00S/18000.00E', -90, 180, 'pattern07'],
+            ['0000.00/-00000.00', 0, 0, 'pattern08'],
+            ['-0000.00/00000.00', 0, 0, 'pattern08'],
+            ['3600.86/-07530.07', 36.014333, -75.501167, 'pattern08'],
+            ['-3600.86/07530.07', -36.014333, 75.501167, 'pattern08'],
+            ['9000.00/-18000.00', 90, -180, 'pattern08'],
+            ['-9000.00/18000.00', -90, 180, 'pattern08'],
         ];
     }
 
@@ -110,12 +110,12 @@ class Pattern07Test extends TestCase
     public static function wrongLatitudeProvider(): array
     {
         return [
-            ['910000N/1800000W', 90, -180, 'pattern07'],
-            ['910000S/1800000E', -90, 180, 'pattern07'],
-            ['900100N/1800000W', 90, -180, 'pattern07'],
-            ['900100S/1800000E', -90, 180, 'pattern07'],
-            ['900001N/1800000W', 90, -180, 'pattern07'],
-            ['900001S/1800000E', -90, 180, 'pattern07'],
+            ['910000/-1800000', 90, -180, 'pattern08'],
+            ['-910000/1800000', -90, 180, 'pattern08'],
+            ['900100/-1800000', 90, -180, 'pattern08'],
+            ['-900100/1800000', -90, 180, 'pattern08'],
+            ['900001/-1800000', 90, -180, 'pattern08'],
+            ['-900001/1800000', -90, 180, 'pattern08'],
         ];
     }
 
@@ -125,12 +125,12 @@ class Pattern07Test extends TestCase
     public static function wrongLongitudeProvider(): array
     {
         return [
-            ['900000N/1810000W', 90, -180, 'pattern07'],
-            ['900000S/1810000E', -90, 180, 'pattern07'],
-            ['900000N/1800100W', 90, -180, 'pattern07'],
-            ['900000S/1800100E', -90, 180, 'pattern07'],
-            ['900000N/1800001W', 90, -180, 'pattern07'],
-            ['900000S/1800001E', -90, 180, 'pattern07'],
+            ['900000/-1810000', 90, -180, 'pattern08'],
+            ['-900000/1810000', -90, 180, 'pattern08'],
+            ['900000/-1800100', 90, -180, 'pattern08'],
+            ['-900000/1800100', -90, 180, 'pattern08'],
+            ['900000/-1800001', 90, -180, 'pattern08'],
+            ['-900000/1800001', -90, 180, 'pattern08'],
         ];
     }
 }

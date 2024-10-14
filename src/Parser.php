@@ -16,6 +16,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern07;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern08;
 
 /**
  * Универсальный парсер координат.
@@ -55,30 +56,10 @@ class Parser
     . '|' . Pattern05::REGEX
     . '|' . Pattern06::REGEX
     . '|' . Pattern07::REGEX
-    . '|^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$'
+    . '|' . Pattern08::REGEX
     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
     . '~';
-
-    /**
-     * Шаблон 07: DD°MM.mm (with letters) in ForeFlight (3600.86N/07530.07W equivalent 36°00.86′N/75°30.07′W)
-     * жестко позиционированные значения в градусах и минутах с дробной частью, разделителем в виде слэша, буквенным
-     * обозначением
-     *
-     * https://regex101.com/r/RtNxVp/4
-     */
-    public const REGEX_07 = '~^(?<t07>(?<ltD07>\d{2})(?<ltM07>\d{2}\.\d{2})(?<ltL07>S|N)/(?<lnD07>\d{3})'
-    . '(?<lnM07>\d{2}\.\d{2})(?<lnL07>W|E))$~';
-
-    /**
-     * Шаблон 08: DD°MM.mm (with a minus) in ForeFlight (3600.86/-07530.07 equivalent 36°00.86′N/75°30.07′W)
-     * жестко позиционированные значения в градусах и минутах с дробной частью, разделителем в виде слэша, без
-     * буквенного обозначения
-     *
-     * https://regex101.com/r/o4H23D/3
-     */
-    public const REGEX_08 = '~^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)'
-    . '(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$~';
 
     /**
      * Шаблон 09: yandex (N55.00136/E057.19818 equivalent 55.00136°N/057.19818°E)
@@ -164,7 +145,7 @@ class Parser
             't05' => Pattern05::from($params),
             't06' => Pattern06::from($params),
             't07' => Pattern07::from($params),
-            // 't08' => '', // Pattern08::from($params),
+            't08' => Pattern08::from($params),
             // 't09' => '', // Pattern09::from($params),
             // 't10' => '', // Pattern10::from($params),
         };
