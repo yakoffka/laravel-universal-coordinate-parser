@@ -97,6 +97,7 @@ class Pattern01Test extends TestCase
         return [
             // only degrees
             ['00°N/000°W', 0, -0, 'pattern01'],
+            ['00°S/000°E', 0, -0, 'pattern01'],
             ['36°N/75°W', 36, -75, 'pattern01'],
             ['36°S/75°E', -36, 75, 'pattern01'],
             ['90°N/180°W', 90, -180, 'pattern01'],

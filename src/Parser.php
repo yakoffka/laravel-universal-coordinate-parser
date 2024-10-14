@@ -15,6 +15,7 @@ use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern02;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern03;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern05;
 use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern06;
+use Yakoffka\UniversalCoordinateParser\Src\Patterns\Pattern07;
 
 /**
  * Универсальный парсер координат.
@@ -53,7 +54,7 @@ class Parser
     . '|' . Pattern03::REGEX
     . '|' . Pattern05::REGEX
     . '|' . Pattern06::REGEX
-    . '|^(?<t07>(?<ltD07>\d{2})(?<ltM07>\d{2}\.\d{2})(?<ltL07>S|N)/(?<lnD07>\d{3})(?<lnM07>\d{2}\.\d{2})(?<lnL07>W|E))$'
+    . '|' . Pattern07::REGEX
     . '|^(?<t08>(?<ltS08>-|)(?<ltD08>\d{2})(?<ltM08>\d{2}\.\d{2})/(?<lnS08>-|)(?<lnD08>\d{3})(?<lnM08>\d{2}\.\d{2}))$'
     . '|^(?<t09>(?<ltL09>N|S)(?<ltD09>\d{1,2}(?:(?:\.\d{1,6})|))/(?<lnL09>W|E)(?<lnD09>\d{1,3}(?:(?:\.\d{1,6})|)))$'
     . '|^(?<t10>(?<ltD10>\d{2})(?<ltM10>\d{2})(?<ltL10>N|S)(?<lnD10>\d{3})(?<lnM10>\d{2})(?<lnL10>W|E))$'
@@ -162,7 +163,7 @@ class Parser
             // 't04' => '', // Pattern04::from($params),
             't05' => Pattern05::from($params),
             't06' => Pattern06::from($params),
-            // 't07' => '', // Pattern07::from($params),
+            't07' => Pattern07::from($params),
             // 't08' => '', // Pattern08::from($params),
             // 't09' => '', // Pattern09::from($params),
             // 't10' => '', // Pattern10::from($params),

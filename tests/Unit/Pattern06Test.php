@@ -95,7 +95,8 @@ class Pattern06Test extends TestCase
     public static function successProvider(): array
     {
         return [
-            ['000000/0000000', 0, 0, 'pattern06'],
+            ['000000/-0000000', 0, 0, 'pattern06'],
+            ['-000000/0000000', 0, 0, 'pattern06'],
             ['360051/-0753004', 36.014167, -75.501111, 'pattern06'],
             ['-360051/0753004', -36.014167, 75.501111, 'pattern06'],
             ['900000/-1800000', 90, -180, 'pattern06'],
