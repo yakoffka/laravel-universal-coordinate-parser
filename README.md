@@ -13,13 +13,19 @@ composer require yakoffka/laravel-universal-coordinate-parser
 строковом представлении и возвращающего объект Yakoffka\UniversalCoordinateParser\Dto\PointDTO:
 - getPointDto(string $subject): PointDto;
 
+```
+$point = UniversalCoordinateParser::getPointDto('36°01′N/75°01′W')
+
+dd($point);
+
+// Outputs:
 Yakoffka\UniversalCoordinateParser\Dto\PointDTO {
     +lat: 36.016667
     +lon: -75.016667
     +src: "36°01′N/75°01′W"
     +pattern: "pattern01"
 }
-
+```
 
 
 # Laravel universal coordinate parser
@@ -37,12 +43,19 @@ The library provides one method that takes as a mandatory argument the coordinat
 representation and returns a Yakoffka\UniversalCoordinateParser\Dto\PointDTO object:
 - getPointDto(string $subject): PointDto;
 
+```
+$point = UniversalCoordinateParser::getPointDto('36°01′N/75°01′W')
+
+dd($point);
+
+// Outputs:
 Yakoffka\UniversalCoordinateParser\Dto\PointDTO {
     +lat: 36.016667
     +lon: -75.016667
     +src: "36°01′N/75°01′W"
     +pattern: "pattern01"
 }
+```
 
 ## License
 
