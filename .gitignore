@@ -3,3 +3,5 @@
 /temp/
 composer.lock
 .phpunit.cache
+.phpunit.result.cache
+.phpunit.xml

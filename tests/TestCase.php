@@ -12,11 +12,14 @@ use Yakoffka\UniversalCoordinateParser\Parser;
  * Примеры вызова тестов:
  *  $ docker-compose exec php vendor/bin/testbench package:test
  *  $ ./vendor/bin/phpunit
+ *  $ composer test
  */
-class TestCase extends TestbenchTestCase
+abstract class TestCase extends TestbenchTestCase
 {
     /**
+     * Setup the test environment.
      *
+     * @return void
      */
     public function setUp(): void
     {
