@@ -3,7 +3,7 @@
     "description": "laravel universal coordinate parser",
     "type": "library",
     "require": {
-        "php": "^8.0"
+        "php": "^8.2"
     },
     "license": "MIT",
     "autoload": {
