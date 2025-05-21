@@ -17,6 +17,8 @@ use Yakoffka\UniversalCoordinateParser\Patterns\AbstractPattern;
  * Универсальный парсер координат.
  * Преобразует строку координат в одном из распространенных форматов в PointDTO
  *
+ * https://regex101.com/r/pqVQ3w/15
+ *
  * @todo обновить общий шаблон и сообщить Виталию!
  */
 class Parser
@@ -82,8 +84,9 @@ class Parser
         if (count($matchingPatterns) > 1) {
             throw new RuntimeException("More than one pattern matched for '$subject': "
                 . implode(', ', $matchingPatterns));
+        }
 
-        } elseif (count($matchingPatterns) === 0) {
+        if (count($matchingPatterns) === 0) {
             dump($subject, $params);
             throw new RuntimeException("No pattern found matching '$subject'");
         }
